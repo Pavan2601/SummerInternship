@@ -109,11 +109,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> origin
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -121,10 +116,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "9.1.0"
-<<<<<<< HEAD
-=======
->>>>>>> 48a75a6 (Scanner Added)
->>>>>>> origin
   google_fonts:
     dependency: "direct main"
     description:
