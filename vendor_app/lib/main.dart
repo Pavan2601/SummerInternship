@@ -16,6 +16,8 @@
 // Requires one of its ancestors to be a [Material] widget.
 
 import 'package:flutter/material.dart';
+import 'package:vendor_app/ServiceProvider.dart';
+import 'package:vendor_app/VendorHomePage.dart';
 import 'Register.dart';
 
 void main() => runApp(const MyApp());
@@ -54,6 +56,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   SingingCharacter? _character = SingingCharacter.vendor;
   final formKey = GlobalKey<FormState>();
+  var characterValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +120,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             onChanged: (SingingCharacter? value) {
                               setState(() {
                                 _character = value;
+                                characterValue = 1;
                               });
                             },
                           ),
@@ -148,11 +152,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               // you'd often call a server or save the information in a database.
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('')));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegisterPage()),
-                              );
+                              if (characterValue == 1) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => VendorHomePage()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ServiceProviderHomePage()),
+                                );
+                              }
                             }
                           },
                           child: Text('Sign In'),
