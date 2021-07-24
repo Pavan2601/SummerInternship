@@ -1,20 +1,3 @@
-/// Flutter code sample for Radio
-
-// Here is an example of Radio widgets wrapped in ListTiles, which is similar
-// to what you could get with the RadioListTile widget.
-//
-// The currently selected character is passed into `groupValue`, which is
-// maintained by the example's `State`. In this case, the first `Radio`
-// will start off selected because `_character` is initialized to
-// `SingingCharacter.lafayette`.
-//
-// If the second radio button is pressed, the example's state is updated
-// with `setState`, updating `_character` to `SingingCharacter.jefferson`.
-// This causes the buttons to rebuild with the updated `groupValue`, and
-// therefore the selection of the second button.
-//
-// Requires one of its ancestors to be a [Material] widget.
-
 import 'package:flutter/material.dart';
 import 'package:vendor_app/ServiceProvider.dart';
 import 'package:vendor_app/VendorHomePage.dart';
@@ -22,7 +5,6 @@ import 'Register.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -44,7 +26,6 @@ class MyApp extends StatelessWidget {
 
 enum SingingCharacter { vendor, service_Provider }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -118,6 +99,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             value: SingingCharacter.vendor,
                             groupValue: _character,
                             onChanged: (SingingCharacter? value) {
+                              print(characterValue);
                               setState(() {
                                 _character = value;
                                 characterValue = 1;
@@ -131,8 +113,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             value: SingingCharacter.service_Provider,
                             groupValue: _character,
                             onChanged: (SingingCharacter? value) {
+                              print(characterValue);
                               setState(() {
                                 _character = value;
+                                characterValue = 0;
                               });
                             },
                           ),
@@ -142,14 +126,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Validate returns true if the form is valid, or false otherwise.
-
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-
                             if (formKey.currentState!.validate()) {
-                              // If the form is valid, display a snackbar. In the real world,
-                              // you'd often call a server or save the information in a database.
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('')));
                               if (characterValue == 1) {
