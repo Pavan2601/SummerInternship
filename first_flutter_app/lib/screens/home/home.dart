@@ -2,6 +2,7 @@ import 'package:barcode_scan_fix/barcode_scan.dart';
 
 import 'package:first_flutter_app/constants.dart';
 import 'package:first_flutter_app/models/salons.dart';
+import 'package:first_flutter_app/services/auth.dart';
 import 'package:first_flutter_app/widgets/category_card.dart';
 import 'package:first_flutter_app/widgets/customListTile.dart';
 import 'package:first_flutter_app/widgets/salon_card.dart';
@@ -10,10 +11,10 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'models/categories.dart';
-import 'Dashboard.dart';
-import 'login.dart';
-import 'Qr_Scanner.dart';
+import '../../models/categories.dart';
+import '../../Dashboard.dart';
+import '../authenticate/login.dart';
+import '../../Qr_Scanner.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String qrCodeResult = " ";
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,13 @@ class _HomeState extends State<Home> {
                             'Settings',
                             style: TextStyle(fontSize: 25),
                           ),
-                        )
+                        ),
+                        ListTile(
+                          title: Text('Sign Out'),
+                          onTap: () async {
+                            await _auth.signOut();
+                          },
+                        ),
                       ],
                     ),
                   ),

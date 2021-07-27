@@ -3,11 +3,24 @@ import 'package:first_flutter_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Register.dart';
-import 'home.dart';
+import '../home/home.dart';
+import '../../services/auth.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
+
+  String email = "";
+  String password = "";
+  String error = "";
+
   int justify = 0;
 
   @override
@@ -50,10 +63,15 @@ class LoginPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
                         cursorColor: Colors.black,
                         // The validator receives the text that the user has entered.
                         decoration: InputDecoration(
-                            labelText: 'User Name',
+                            labelText: 'Email',
                             labelStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(
@@ -70,6 +88,12 @@ class LoginPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                        obscureText: true,
                         cursorColor: Colors.black,
                         // The validator receives the text that the user has entered.
                         decoration: InputDecoration(
@@ -96,26 +120,35 @@ class LoginPage extends StatelessWidget {
                             ),
                             RaisedButton(
                               color: Colors.amber,
-                              onPressed: () {
+                              onPressed: () async {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (formKey.currentState!.validate()) {
+                                  dynamic result =
+                                      await _auth.signInrWithEmailAndPassword(
+                                          email, password);
+                                  if (result == null) {
+                                    setState(() {
+                                      error = "Invail Email and password";
+                                    });
+                                  } else {
+                                    Navigator.pushReplacement<void, void>(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const Home(),
+                                      ),
+                                    );
+                                  }
                                   // If the form is valid, display a snackbar. In the real world,
                                   // you'd often call a server or save the information in a database.
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('')));
-                                  justify = 1;
-
-                                  Navigator.pushReplacement<void, void>(
-                                    context,
-                                    MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          const Home(),
-                                    ),
-                                  );
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //     SnackBar(content: Text('')));
+                                  // justify = 1;
                                 }
                               },
                               child: Text('Sign In'),
                             ),
+                            Text(error, style: TextStyle(color: Colors.red)),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 2.9),

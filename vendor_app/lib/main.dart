@@ -98,8 +98,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           leading: Radio<SingingCharacter>(
                             value: SingingCharacter.vendor,
                             groupValue: _character,
+                            toggleable: true,
                             onChanged: (SingingCharacter? value) {
-                              print(characterValue);
+                              //print(characterValue);
                               setState(() {
                                 _character = value;
                                 characterValue = 1;
@@ -112,8 +113,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           leading: Radio<SingingCharacter>(
                             value: SingingCharacter.service_Provider,
                             groupValue: _character,
+                            toggleable: true,
                             onChanged: (SingingCharacter? value) {
-                              print(characterValue);
+                              //print(characterValue);
                               setState(() {
                                 _character = value;
                                 characterValue = 0;

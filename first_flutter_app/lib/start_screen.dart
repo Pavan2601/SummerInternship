@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:first_flutter_app/Media_Query.dart';
-import 'package:first_flutter_app/login.dart';
+import 'package:first_flutter_app/screens/authenticate/login.dart';
+import 'package:first_flutter_app/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'home.dart';
+import 'screens/home/home.dart';
 import 'constants.dart';
 
 class SplashScreen extends StatefulWidget {
