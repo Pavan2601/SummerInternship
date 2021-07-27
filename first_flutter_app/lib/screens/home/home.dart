@@ -71,15 +71,15 @@ class _HomeState extends State<Home> {
                           height: 15,
                         ),
                         ListTile(
-                          title: Text(
-                            'Settings',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        ListTile(
                           title: Text('Sign Out'),
                           onTap: () async {
                             await _auth.signOut();
+                            Navigator.pushReplacement<void, void>(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => LoginPage(),
+                              ),
+                            );
                           },
                         ),
                       ],
@@ -230,18 +230,7 @@ class _HomeState extends State<Home> {
                         }, // handle your image tap here
                         child: SalonCard(
                           salons: salons,
-                        )
-                        // Image.asset(
-                        //   'assets/cat.jpg',
-                        //   fit: BoxFit.cover, // this is the solution for border
-                        //   width: 110.0,
-                        //   height: 110.0,
-                        // ),
-                        );
-
-                    // return SalonCard(
-                    //   salons: salons,
-                    // );
+                        ));
                   },
                 ),
               ),
