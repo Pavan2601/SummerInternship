@@ -2,6 +2,7 @@ import 'package:barcode_scan_fix/barcode_scan.dart';
 
 import 'package:first_flutter_app/constants.dart';
 import 'package:first_flutter_app/models/salons.dart';
+import 'package:first_flutter_app/screens/home/BookingScreen.dart';
 import 'package:first_flutter_app/services/auth.dart';
 import 'package:first_flutter_app/widgets/category_card.dart';
 import 'package:first_flutter_app/widgets/customListTile.dart';
@@ -10,11 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
 import '../../models/categories.dart';
 import '../../Dashboard.dart';
 import '../authenticate/login.dart';
 import '../../Qr_Scanner.dart';
+import 'BookingScreen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -26,6 +29,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String qrCodeResult = " ";
   final AuthService _auth = AuthService();
+  var time = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -200,33 +204,16 @@ class _HomeState extends State<Home> {
 
                     return GestureDetector(
                         onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.amber[50],
-                                  content: Stack(
-                                    //overflow: Overflow.visible,
-                                    children: [
-                                      Container(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                5,
-                                        child: Column(
-                                          children: [
-                                            Center(
-                                              child: Text(
-                                                'Hello',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DateTimePicker()),
+                          );
+                          // showMaterialTimePicker(
+                          //   context: context,
+                          //   selectedTime: time,
+                          //   onChanged: (value) => setState(() => time = value),
+                          // );
                         }, // handle your image tap here
                         child: SalonCard(
                           salons: salons,
