@@ -14,13 +14,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final AuthService _auth = AuthService();
 
-  String FirstName = "";
-
-  String LastName = "";
-
-  String Email = "";
-
-  String Password = "";
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController error = TextEditingController();
 
   String Error = "";
 
@@ -41,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   // The validator receives the text that the user has entered.
+                  controller: firstName,
                   decoration: InputDecoration(
                       labelText: 'First Name', border: OutlineInputBorder()),
                   validator: (value) {
@@ -54,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: lastName,
                   // The validator receives the text that the user has entered.
                   decoration: InputDecoration(
                       labelText: 'Last Name', border: OutlineInputBorder()),
@@ -68,6 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: email,
                   // The validator receives the text that the user has entered.
                   decoration: InputDecoration(
                       labelText: 'Email', border: OutlineInputBorder()),
@@ -82,6 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: password,
                   // The validator receives the text that the user has entered.
                   decoration: InputDecoration(
                       labelText: 'Password', border: OutlineInputBorder()),
@@ -99,7 +101,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Colors.amber,
                   onPressed: () async {
                     dynamic result = await _auth.registerWithEmailAndPassword(
-                        Email, Password);
+                      email.text,
+                      password.text,
+                    );
                     if (result == null) {
                       setState(() {
                         Error = "Enter vaild Email";
@@ -107,8 +111,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                     // Validate returns true if the form is valid, or false otherwise.
                     if (formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Registered Successfully')));
                       Navigator.pop(context);
