@@ -40,6 +40,7 @@ dependencies:
   
   flutter_svg: ^0.22.0
   flutter_custom_clippers: ^2.0.0
+  shared_preferences: ^2.0.6
 
 
 dev_dependencies:
@@ -53,6 +54,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
